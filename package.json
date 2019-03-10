@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "custom-switch": "https://github.com/cbtpro/custom-switch.git",
+    "d3": "^5.9.1",
+    "lodash": "^4.17.11",
     "vue": "^2.5.11"
   },
   "browserslist": [
