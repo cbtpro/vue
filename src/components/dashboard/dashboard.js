@@ -18,6 +18,11 @@ export default class Dashboard {
           color = 'rgb(255, 255, 255)',
           className = 'dashboard-value-label'
         },
+        unit: {
+          text: unitText,
+          fontSize: unitFontSize,
+          color: unitColor
+        },
         label: {
           className: labelClassName = 'dashboard-name-label',
           color: labelColor = 'rgba(71, 67, 127)',
@@ -57,6 +62,11 @@ export default class Dashboard {
       pointerColor,
       color,
       className
+    }
+    this.unit = {
+      text: unitText,
+      fontSize: unitFontSize,
+      color: unitColor
     }
     this.label = {
       className: labelClassName,
@@ -128,8 +138,9 @@ export default class Dashboard {
     this.innerDial.attr('d', innerArc()).attr('fill', 'rgb(255, 255, 255)')
 
     /** 添加指针的表盘 */
+    let connerRadius = this.pointerBackgroundWidth / 2
     let pointerBackgroundArc = d3.arc()
-      .cornerRadius(20)
+      .cornerRadius(connerRadius)
       .innerRadius(this.radius - (this.pointerBackgroundWidth + this.pointerBackgroundPadding))
       .outerRadius(this.radius - this.pointerBackgroundPadding)
       .startAngle(-0.75 * Math.PI)
@@ -155,8 +166,9 @@ export default class Dashboard {
     let scale = d3.scaleLinear()
       .domain([this.data.minValue, this.data.maxValue])
       .range([startAngle, endAngle])
+    let connerRadius = this.pointerBackgroundWidth / 2
     let pointerArc = d3.arc()
-      .cornerRadius(20)
+      .cornerRadius(connerRadius)
       .innerRadius(this.radius - (this.pointerBackgroundWidth + this.pointerBackgroundPadding))
       .outerRadius(this.radius - this.pointerBackgroundPadding)
       .startAngle(startAngle)
@@ -166,6 +178,24 @@ export default class Dashboard {
     }
     // this.pointerArcEl.transition(1000).attr('d', pointerArc())
     this.pointerArcEl.attr('d', pointerArc())
+
+    //添加圆点
+    // <circle cx="60" cy="60" r="50"/>
+    if (!this.pointerCircle) {
+      this.pointerCircle = this.group.append('circle')
+      // this.pointerCircle = this.group.append('foreignObject').attr('width', 50).attr('height', 50).append('div')
+    }
+    // transform: translate3d(-146px, 60px, 0);
+    let centerX = 0, centerY = 0
+    let r = this.radius - this.pointerBackgroundPadding
+    let angle = scale(this.data.value)
+    let x = centerX + r * Math.cos(angle)
+    let y = centerY + r * Math.sin(angle);
+
+    this.pointerCircle.attr('cx', 0).attr('cy', '0').attr('r', this.pointerBackgroundWidth / 2 * 1.2)
+      .attr('class', 'pointer-circle').attr('style', `transform: translate3d(${y}px, ${x}px, 0)`)
+    // this.pointerCircle.attr('x', -25).attr('y', -25).attr('r', this.pointerBackgroundWidth / 2 * 1.2)
+    //   .attr('class', 'pointer-circle')
   }
   setValue(value) {
     if (value) {
@@ -184,6 +214,12 @@ export default class Dashboard {
         .attr('fill', this.data.color) // 文字颜色
         .attr('font-size', this.data.fontSize)
         .text(this.data.value)
+      if (this.unit && this.unit.text) {
+        this.unitEl = this.valueEl.append('tspan')
+        this.unitEl.text(this.unit.text)
+        this.unit.fontSize && this.unitEl.attr('font-size', this.unit.fontSize)
+        this.unit.color && this.unitEl.attr('fill', this.unit.color)
+      }
     }
   }
   setLabel() {

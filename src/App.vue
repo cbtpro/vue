@@ -43,6 +43,11 @@ export default {
         color: 'rbg(255, 255, 255)',
         className: 'dashboard-value-label'
       },
+      unit: {
+        text: '%',
+        fontSize: '3rem',
+        color: 'red'
+      },
       label: {
         text: '室内PM2.5',
         fontSize: '3rem',
@@ -123,5 +128,9 @@ a {
 .container-item {
   width: 1000px;
   height: 1000px;
+}
+.pointer-circle {
+  fill:#e7e7e7;
+  box-shadow: 0px 0px 11px 5px #42b983;
 }
 </style>
