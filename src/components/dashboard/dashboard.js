@@ -179,23 +179,23 @@ export default class Dashboard {
     // this.pointerArcEl.transition(1000).attr('d', pointerArc())
     this.pointerArcEl.attr('d', pointerArc())
 
-    //添加圆点
-    // <circle cx="60" cy="60" r="50"/>
-    if (!this.pointerCircle) {
-      this.pointerCircle = this.group.append('circle')
-      // this.pointerCircle = this.group.append('foreignObject').attr('width', 50).attr('height', 50).append('div')
-    }
-    // transform: translate3d(-146px, 60px, 0);
-    let centerX = 0, centerY = 0
-    let r = this.radius - this.pointerBackgroundPadding
+    // 添加指针上的圆点
     let angle = scale(this.data.value)
-    let x = centerX + r * Math.cos(angle)
-    let y = centerY + r * Math.sin(angle);
-
-    this.pointerCircle.attr('cx', 0).attr('cy', '0').attr('r', this.pointerBackgroundWidth / 2 * 1.2)
-      .attr('class', 'pointer-circle').attr('style', `transform: translate3d(${y}px, ${x}px, 0)`)
-    // this.pointerCircle.attr('x', -25).attr('y', -25).attr('r', this.pointerBackgroundWidth / 2 * 1.2)
-    //   .attr('class', 'pointer-circle')
+    let circleStartAngle = angle - 0.16
+    let circleEndAngle = angle + 0.16
+    let innerRadius = this.radius - (this.pointerBackgroundWidth * 1.1 + this.pointerBackgroundPadding)
+    let outerRadius = this.radius - this.pointerBackgroundPadding * 0.9
+    let cornerRadius = outerRadius - innerRadius
+    let pointerCircleArc = d3.arc()
+      .cornerRadius(cornerRadius)
+      .innerRadius(innerRadius)
+      .outerRadius(outerRadius)
+      .startAngle(circleStartAngle)
+      .endAngle(circleEndAngle)
+    if (!this.pointerCircleArcEl) {
+      this.pointerCircleArcEl = this.group.append('path').attr('fill', '#e7e7e7')
+    }
+    this.pointerCircleArcEl.attr('d', pointerCircleArc())
   }
   setValue(value) {
     if (value) {

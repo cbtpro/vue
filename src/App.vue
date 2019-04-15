@@ -46,7 +46,7 @@ export default {
       unit: {
         text: '%',
         fontSize: '3rem',
-        color: 'red'
+        color: '#e7e7e7'
       },
       label: {
         text: '室内PM2.5',
