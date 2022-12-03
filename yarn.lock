@@ -1541,9 +1541,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-"custom-switch@https://github.com/cbtpro/custom-switch.git":
+"custom-switch@git+https://github.com/cbtpro/custom-switch.git#v0.1":
   version "1.0.0"
-  resolved "https://github.com/cbtpro/custom-switch.git#e810bbe3080e5353810946de3a305e1165415724"
+  uid "739578ee25b3ad6d679e3f4d90055c953d97b1d0"
+  resolved "git+https://github.com/cbtpro/custom-switch.git#739578ee25b3ad6d679e3f4d90055c953d97b1d0"
   dependencies:
     vue "^2.5.11"
 
@@ -1832,9 +1833,9 @@ decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-equal@^1.0.1:
   version "1.0.1"
